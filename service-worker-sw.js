@@ -7,17 +7,19 @@ const CACHE_NAME = 'seminaire-v' + cacheVersion //nom du cache
 const urlsToCache = [
     '/',
     '/index.html',
-    '/images/Designer.png',
+    '/images/logo.png',
     '/manifest.json',
     '/main.js',
     '/style.css',
     'https://startechs-2024-default-rtdb.europe-west1.firebasedatabase.app/blog.json',
-    '/icons/192x192.png',
-    '/icons/512x512.png',
-    '/images/telecharger.png',
-    '/icons/apple-touch-icon.png',
-    '/icons/favicon.ico',
-    '/images/telecharger2.png',
+    '/images/192x192.png',
+    '/images/512x512.png',
+    '/images/arrow_left.svg',
+    '/images/arrow_right_white.svg',
+    '/images/arrow_right.svg',
+    '/images/arrow_top.svg',
+    '/images/facebook.svg',
+    '/icons/icon.png',
 ];
 
 // Séparons l'URL de l'API pour un traitement spécifique
@@ -46,8 +48,8 @@ self.addEventListener('activate', event => {
             //si il existe
             if(exists) {
                 // on le détruit
-                caches.delete('news-web-v' + oldVersion).then(() => {
-                console.log('Cache supprimé : news-web-v' + oldVersion)
+                caches.delete('seminaire-v' + oldVersion).then(() => {
+                console.log('Cache supprimé : seminaire-v' + oldVersion)
                 })
             }
       })
