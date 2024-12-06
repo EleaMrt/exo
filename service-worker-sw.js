@@ -7,28 +7,17 @@ const CACHE_NAME = 'seminaire-v' + cacheVersion //nom du cache
 const urlsToCache = [
     '/',
     '/index.html',
-    '/images/logo.png',
+    '/images',
+    '/fonts',
+    '/index.files',
+    '/building.webp',
+    '/building2.webp',
     '/manifest.json',
-    '/main.js',
-    '/style.css',
-    'https://startechs-2024-default-rtdb.europe-west1.firebasedatabase.app/blog.json',
-    '/images/192x192.png',
-    '/images/512x512.png',
-    '/images/arrow_left.svg',
-    '/images/arrow_right_white.svg',
-    '/images/arrow_right.svg',
-    '/images/arrow_top.svg',
-    '/images/facebook.svg',
-    '/images/icon.ai',
-    '/images/icon.png',
-    '/icons/icon.svg',
-    '/icons/instagram.svg',
-    '/icons/list.svg',
-    '/icons/logo.ai',
-    '/icons/logo.png',
-    '/icons/logo.svg',
-    '/icons/phone.svg',
-    '/icons/youtube.svg',
+    '/service-worker.js',
+    '/salle1.webp',
+    '/salle2.webp',
+    '/salle3.webp',
+    '/salle4.webp',
 
 ];
 
@@ -46,20 +35,19 @@ self.addEventListener('install', event => {
     //on force l'activation du sw
     return self.skipWaiting()
 });
-
 //À l'activation
 self.addEventListener('activate', event => {
     // on récupère le nom de l'ancien cache
     let oldVersion = cacheVersion - 1
     event.waitUntil(
         // on vérifie si il existe
-        caches.has('news-web-v' + oldVersion)
+        caches.has('seminaire' + oldVersion)
         .then(exists => {
             //si il existe
             if(exists) {
                 // on le détruit
-                caches.delete('seminaire-v' + oldVersion).then(() => {
-                console.log('Cache supprimé : seminaire-v' + oldVersion)
+                caches.delete('seminaire' + oldVersion).then(() => {
+                console.log('Cache supprimé : seminaire' + oldVersion)
                 })
             }
       })
@@ -67,13 +55,14 @@ self.addEventListener('activate', event => {
     // le sw prend contrôle de toutes les page web directement sans rechargement
     return self.clients.claim()
   })
-  
+
 // lors d'une requête, on l'intercepte
 
 self.addEventListener('fetch', event => {
     //si la requête cible l'api
     if (event.request.url === API_URL) {
         // Stratégie Réseau d'abord pour l'API
+        console.log('network')
         event.respondWith(
             // on lance la requête sur le réseau
             fetch(event.request)
@@ -92,14 +81,14 @@ self.addEventListener('fetch', event => {
                     return caches.match(event.request);
                 })
         );
-    } else {
+} else {
         // Stratégie Cache d'abord pour les autres ressources
         //on remplace la réponse à la requête interceptée par fetch.
         event.respondWith(
             //on cherche dans le cache une réponse correspondant à la requête
             caches.match(event.request)
-            //si on a une réponse elle est retournée || on envoie la requête au réseau
-                .then(response => response || fetch(event.request))
+            //si on a une réponse elle est retournée  on envoie la requête au réseau
+                .then(response => response  fetch(event.request))
         );
     }
 });
