@@ -19,7 +19,17 @@ const urlsToCache = [
     '/images/arrow_right.svg',
     '/images/arrow_top.svg',
     '/images/facebook.svg',
-    '/icons/icon.png',
+    '/images/icon.ai',
+    '/images/icon.png',
+    '/icons/icon.svg',
+    '/icons/instagram.svg',
+    '/icons/list.svg',
+    '/icons/logo.ai',
+    '/icons/logo.png',
+    '/icons/logo.svg',
+    '/icons/phone.svg',
+    '/icons/youtube.svg',
+
 ];
 
 // Séparons l'URL de l'API pour un traitement spécifique
